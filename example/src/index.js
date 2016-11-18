@@ -3,25 +3,44 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom'
 import easyBind from '../../lib'
 
-@easyBind
-export default class Example extends Component {
+class Example extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   handleClick(v, e) {
-    console.log(v, e);
+    console.log(v, e)
   }
 
   render() {
-    return (
+    const list = [1,3,4,5,5,6,6,7,7,8,8,9,9,]
+    const nodes = list.map((item) =>
       <div
-        onClick={this.easyBind('handleClick', 'hello')}
+        onClick={this.hello(this.props.test, item)}
         className="Example">
-        MyComponent
+        {item}
+      </div>)
+    return (
+      <div>
+        {nodes}
       </div>
     );
   }
 }
 
-ReactDOM.render(<Example/>, document.getElementById('app'))
+easyBind(Example, 'hello')
+
+class Parent extends Component {
+  constructor(props) {
+    super(props)
+  }
+  test(){
+    console.log(arguments, this);
+  }
+  render(){
+    return <Example test={this.test} />
+  }
+}
+
+
+ReactDOM.render(<Parent/>, document.getElementById('app'))
