@@ -11,16 +11,25 @@
     "babel-preset-latest": "^6.16.0",
     "babel-preset-react": "^6.16.0",
     "babel-register": "^6.18.0",
+    "expect": "^1.20.2",
+    "mocha": "^3.1.2",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^1.16.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --compilers jsx?:babel-core/register test/index.js",
+    "test:watch": "mocha --compilers jsx?:babel-core/register test/index.js --watch",
+    "coverage": "babel-node ./node_modules/istanbul/lib/cli cover _mocha -- --compilers jsx?:babel-core/register test/index.js",
+    "example": "webpack --progress --colors",
     "example:watch": "webpack --watch",
+    "server": "webpack-dev-server --content-base example/",
+    "start": "npm run example && npm run server",
     "build:watch": "babel src --out-dir lib --watch",
-    "start": "webpack-dev-server --content-base example/"
+    "build": "babel src --out-dir lib",
+    "build:minify": "babel src/index.js --out-file ./react-easy-bind.js --minified",
+    "prepublish": "npm run build && npm run build:minify"
   },
   "repository": {
     "type": "git",
