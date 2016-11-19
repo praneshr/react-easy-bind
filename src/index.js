@@ -1,56 +1,64 @@
-{
-  const bindStringFunction = function bindStringFunction(fn, { target, args: extraArgs }) {
-    return (...args) => {
-      try {
-        return this[fn].apply(this, extraArgs.concat(...args))
-      } catch (e) {
-        console.error(e)
-        console.error(`Error: '${fn}' is not defined in '${target.name}'`)
-        return undefined
-      }
-    }
-  }
+const ignoredMethods = [
+  'constructor',
+  'componentWillMount',
+  'componentDidMount',
+  'componentDidUpdate',
+  'componentWillReceiveProps',
+  'componentWillUnmount',
+  'render',
+]
 
-  const bindFunction = function bindFunction(fn, { target, args: extraArgs }) {
-    return (...args) => fn.apply(this, extraArgs.concat(...args))
-  }
+const flattenArray = params => params.reduce((a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), [])
 
-  const classifyType = function(fn, targetAndArgs) {
-    switch (typeof fn) {
-      case 'string':
-        return bindStringFunction.apply(this, [fn, targetAndArgs])
-      case 'function':
-        return bindFunction.apply(this, [fn, targetAndArgs])
-      default:
-        console.error(`Error: Unsupported type '${typeof fn}'`)
-        return undefined
+const registerEasyBindApi = (target) => {
+  target.prototype.easyBind = (...options) => {
+    const [fn, ...params] = options
+    if (typeof fn !== 'function') {
+      console.error(`Error: In '${target.name}', first parameter of easyBind should be a function but got ${typeof fn}.`)
+      return
     }
+    return (...args) => fn.apply(null, flattenArray(params).concat(args))
   }
-
-  const seedEasyBind = (target, fnName = 'easyBind') => {
-    target.prototype[fnName] = function() {
-      const [fn, ...args] = arguments
-      return classifyType.call(this, fn, { target, args })
-    }
-    return target
-  }
-
-  const ReactEasyBind = function ReactEasyBind(A, B) {
-    if (B) {
-      return seedEasyBind(A, B);
-    }
-    if (typeof A === 'string') {
-      return function (target) {
-        return seedEasyBind(target, A);
-      };
-    } else {
-      return seedEasyBind(...arguments);
-    }
-  }
-  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined')
-      module.exports = ReactEasyBind
-  else if (typeof define === 'function' && define.amd)
-      define([], () => ReactEasyBind)
-  else
-    window.ReactEasyBind = ReactEasyBind
 }
+
+
+const bindFn = (el, propDescriptor) => {
+  return {
+    configurable: true,
+    get: function get() {
+      const bindedFn = propDescriptor.value.bind(this)
+      Object.defineProperty(this, el, {
+        configurable: true,
+        writable: true,
+        value: bindedFn,
+      })
+      return bindedFn
+    },
+    set: function set(newValue) {
+      if (el !== 'easyBind')
+        Object.defineProperty(this, el, {
+          configurable: true,
+          writable: true,
+          value: newValue,
+        })
+    }
+  }
+}
+
+const easyBind = (target) => {
+
+  registerEasyBindApi(target)
+  
+  const targetPrototype = target.prototype
+  const targetProperties = Object.getOwnPropertyNames(targetPrototype)
+  const filteredProperties = targetProperties.filter(el => !(ignoredMethods.indexOf(el) > -1))
+
+  filteredProperties.forEach((el) => {
+    const propDescriptor = Object.getOwnPropertyDescriptor(targetPrototype, el)
+    Object.defineProperty(targetPrototype, el, bindFn(el, propDescriptor))
+  })
+
+  return target
+}
+
+export default easyBind
