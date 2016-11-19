@@ -3,20 +3,22 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom'
 import easyBind from '../../lib'
 
+
+@easyBind
 class Example extends Component {
   constructor(props) {
     super(props)
   }
 
   handleClick(v, e) {
-    console.log(v, e)
+    console.log(arguments)
   }
 
   render() {
     const list = [1,3,4,5,5,6,6,7,7,8,8,9,9,]
-    const nodes = list.map((item) =>
+    const nodes = list.map((...item) =>
       <div
-        onClick={this.hello(this.props.test, item)}
+        onClick={this.easyBind(this.handleClick, 'hello')}
         className="Example">
         {item}
       </div>)
@@ -28,8 +30,7 @@ class Example extends Component {
   }
 }
 
-easyBind(Example, 'hello')
-
+@easyBind
 class Parent extends Component {
   constructor(props) {
     super(props)
@@ -38,7 +39,7 @@ class Parent extends Component {
     console.log(arguments, this);
   }
   render(){
-    return <Example test={this.test} />
+    return <Example test={this.easyBind(this.test, 'world')} />
   }
 }
 
