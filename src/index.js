@@ -8,7 +8,6 @@ const ignoredMethods = [
   'render',
 ]
 
-const flattenArray = params => params.reduce((a, b) => a.concat(Array.isArray(b) ? flattenArray(b) : b), [])
 
 const registerEasyBindApi = (target) => {
   target.prototype.easyBind = (...options) => {
@@ -17,7 +16,7 @@ const registerEasyBindApi = (target) => {
       console.error(`Error: In '${target.name}', first parameter of easyBind should be a function but got ${typeof fn}.`)
       return
     }
-    return (...args) => fn.apply(null, flattenArray(params).concat(args))
+    return (...args) => fn.apply(null, params.concat(args))
   }
 }
 
