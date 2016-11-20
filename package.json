@@ -1,6 +1,6 @@
 {
   "name": "react-easy-bind",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Binding class properties and passing additional params to callback made easy.",
   "main": "lib/index.js",
   "devDependencies": {
