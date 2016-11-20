@@ -30,7 +30,9 @@
     "build:watch": "babel src --out-dir lib --watch",
     "build": "babel src --out-dir lib",
     "build:minify": "babel src/index.js --out-file lib/index.min.js --minified",
-    "prepublish": "npm run build && npm run build:minify"
+    "prepublish": "npm run build && npm run build:minify",
+    "preversion": "npm build && npm test",
+    "postversion": "git push --tags"
   },
   "repository": {
     "type": "git",
