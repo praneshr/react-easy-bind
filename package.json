@@ -32,7 +32,7 @@
     "build:minify": "babel src/index.js --out-file lib/index.min.js --minified",
     "prepublish": "npm run build && npm run build:minify",
     "preversion": "npm build && npm test",
-    "postversion": "git push --tags"
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
