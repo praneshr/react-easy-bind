@@ -1,7 +1,7 @@
 {
   "name": "react-easy-bind",
   "version": "0.0.1",
-  "description": "",
+  "description": "Binding class properties and passing additional params to callback made easy.",
   "main": "lib/index.js",
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -46,7 +46,7 @@
     "easy-bind",
     "react-easy-bind",
     "easy bind",
-    "react easy bind",
+    "react easy bind"
   ],
   "author": "Pranesh Ravi",
   "license": "MIT",
