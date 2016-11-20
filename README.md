@@ -1,6 +1,6 @@
 # React Easy Bind
 
-A class decorator for react(compatible with normal classes as well ) which automatically binds all the properties of the class and provide a powerfull API to work with react event callbacks.
+A class decorator for react(compatible with normal classes as well ) which automatically binds all the properties of the class and provides a powerful API to work with react event callbacks.
 
 
 ### Installation
@@ -61,7 +61,7 @@ easyBind(Example)
 
 The Easy Bind decorator will register an immutable function to the class and it'll be available as `this.easyBind()`.
 
-`this.easyBind()` creates a wrapping function on behalf of you. By this you can pass any additional parameters to the callback handler without any arrow functions or explicit bindings.
+`this.easyBind()` creates a wrapping function over the callback function. By this you can pass any additional parameters to the callback handler through `this.easyBind()` without any arrow functions or explicit bindings.
 
 #### Example
 ``` javascript
@@ -73,6 +73,17 @@ The Easy Bind decorator will register an immutable function to the class and it'
 
 handleClick(param1, param2, proxyEvent, Event) { }
 ```
+`this.easyBind()` takes the `callback function` as the first parameter. And all the other parameters can be anything.
+
+### Development
+
+``` bash
+$ git clone https://github.com/praneshr/react-easy-bind.git
+$ cd react-easy-bind/
+$ npm i
+$ npm start
+```
+More options can be found under `scripts` in the `package.json`
 
 ### License
 
