@@ -39,6 +39,16 @@ describe('Testing React Auto Bind', () => {
     it('Should return "undefined" when the target function is undefined', () => {
       expect(UsingDecorators.prototype.udf()).toEqual(undefined)
     })
+
+    it('Should ensure immutability of this.easyBind()', () => {
+      UsingDecorators.prototype.easyBind = 'jhsbdjhsbdf'
+      expect(typeof UsingDecorators.prototype.easyBind).toEqual('function')
+    })
+
+    it('Should ensure all other class properties except this.easyBind() is mutable', () => {
+      UsingDecorators.prototype.onClick = 'mutate'
+      expect(UsingDecorators.prototype.onClick).toEqual('mutate')
+    })
   })
 
   describe('Testing with ES5', () => {
@@ -75,6 +85,16 @@ describe('Testing React Auto Bind', () => {
 
     it('Should return "undefined" when the target function is undefined', () => {
       expect(LegacyDefault.prototype.undefinedFn()).toEqual(undefined)
+    })
+
+    it('Should ensure immutability of this.easyBind()', () => {
+      LegacyDefault.prototype.easyBind = 'jhsbdjhsbdf'
+      expect(typeof LegacyDefault.prototype.easyBind).toEqual('function')
+    })
+
+    it('Should ensure all other class properties except this.easyBind() is mutable', () => {
+      LegacyDefault.prototype.onClick = 'mutate'
+      expect(LegacyDefault.prototype.onClick).toEqual('mutate')
     })
   })
 })
