@@ -6,19 +6,17 @@ import easyBind from '../../lib'
 
 @easyBind
 class Example extends Component {
-  constructor(props) {
-    super(props)
-  }
 
-  handleClick(v, e) {
+  handleClick() {
     console.log(arguments)
   }
 
   render() {
-    const list = [1,3,4,5,5,6,6,7,7,8,8,9,9,]
-    const nodes = list.map((...item) =>
+    const list = ['apple', 'mango', 'pineapple', 'fig', 'strawberry']
+    const nodes = list.map((item, i) =>
       <div
-        onClick={this.easyBind(this.handleClick, 'hello')}
+        key={i}
+        onClick={this.easyBind(this.handleClick, item)}
         className="Example">
         {item}
       </div>)
@@ -30,18 +28,5 @@ class Example extends Component {
   }
 }
 
-@easyBind
-class Parent extends Component {
-  constructor(props) {
-    super(props)
-  }
-  test(){
-    console.log(arguments, this);
-  }
-  render(){
-    return <Example test={this.easyBind(this.test, 'world')} />
-  }
-}
 
-
-ReactDOM.render(<Parent/>, document.getElementById('app'))
+ReactDOM.render(<Example/>, document.getElementById('app'))
