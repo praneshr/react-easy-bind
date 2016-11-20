@@ -5,7 +5,7 @@ dependencies:
   override:
     - npm install
 deployment:
-  npm:
+  release:
     tag: /v.*/
     branch: master
     owner: praneshr
