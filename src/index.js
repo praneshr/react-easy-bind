@@ -12,8 +12,10 @@ const ignoredMethods = [
   'constructor',
   'componentWillMount',
   'componentDidMount',
-  'componentDidUpdate',
   'componentWillReceiveProps',
+  'componentWillUpdate',
+  'shouldComponentUpdate',
+  'componentDidUpdate',
   'componentWillUnmount',
   'render',
 ]
