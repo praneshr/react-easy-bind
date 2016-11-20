@@ -1,0 +1,8 @@
+coverage/
+example/
+node_modules/
+test/
+.babelrc
+.gitignore
+.npmignore
+webpack.config.babel.js

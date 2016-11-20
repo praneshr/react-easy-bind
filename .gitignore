@@ -1,3 +1,4 @@
 node_modules/
 example/build/
 coverage/
+lib/index.min.js
