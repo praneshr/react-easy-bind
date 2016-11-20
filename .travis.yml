@@ -7,4 +7,7 @@ deploy:
   provider: npm
   email: praneshpranesh@gmail.com
   api_key:
-    secure: 
+    secure: WgALy8JbAbi4CKQHZS+5UIrwcgJdf1jhyPmuwIcHkn43tKbC50ex9KvBvmIMKbwpZMDHwOc2pLBdpq/d6Ik85YsFhsHHllP8YfaAV20LY34pBWBIExgZ7YPIBeX4gl4KLeNzGcYp0/OZPsA9mlk4Ktgrp6WYfY99nZA1z/ddVO8x3Ce86BoJRfuSiWMcqjBkchGng3WcfDD3hUrrmEotJD9vDGSqUFMqVgJkvBTGg5beYhDlKi5DnTOEqMgbDmUer2sERuMAT/qlixaibMKta3bQB3Ycnd7SIEA83RfmzLdILrfvksU99gDTKG/jnGtkc+rYKEgq231NwyCHbIaJrElV3U5Nzc+lffqSe8oAqlZKXLYPTvX3rTqyj8hEophOMTEB0M38gKI7TBM//FnsQrwP7ZFW8wnIVz7vzFkRjwuEfzxyCDOLnvs7fBh7yvbHiB1x3cObIynjkUfDZ4C3PS1+bIv+tdhGJJRiqP7mevjffIolZSzN2H0xfrJU7jxZP7djLx+Oc4lgSEQL/0T/otcI6utq4hD8tHTKbUbQ8skdi27lHhjjZF1OqNEoq9z0GZCYX1yMQsMJb18Vst3U7c7jDRpmCrpM890VLwvf/8LUeAMW1janBTySye80RjSY/TfHOWLFGP3VceqUMHas38SCoUxTgOLH0tP0MvEdqAI=
+  on:
+    tags: true
+  skip_cleanup: true
