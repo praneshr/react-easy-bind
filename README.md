@@ -1,5 +1,7 @@
 # React Easy Bind
 
+[![Build Status](https://travis-ci.org/praneshr/react-easy-bind.svg)](https://travis-ci.org/praneshr/react-easy-bind)
+
 A class [decorator](https://github.com/wycats/javascript-decorators) for react(compatible with normal classes as well ) which automatically binds all the properties of the class and provides a powerful API to work with react event callbacks.
 
 
