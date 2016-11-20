@@ -1,6 +1,8 @@
 # React Easy Bind
 
-[![Build Status](https://travis-ci.org/praneshr/react-easy-bind.svg)](https://travis-ci.org/praneshr/react-easy-bind)
+[![Build Status](https://circleci.com/gh/praneshr/react-easy-bind.svg?circle-token=60cd5e7bc411206f3c1b19c829d9420ab8fa4a0c&style=shield)](https://circleci.com/gh/praneshr/react-easy-bind)
+
+[![NPM](https://nodei.co/npm/react-easy-bind.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-easy-bind/)
 
 [![NPM](https://nodei.co/npm/react-easy-bind.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/react-easy-bind/)
 
