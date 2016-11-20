@@ -1,12 +1,18 @@
 # React Easy Bind
 
-A class decorator for react(compatible with normal classes as well ) which automatically binds all the properties of the class and provides a powerful API to work with react event callbacks.
+A class [decorator](https://github.com/wycats/javascript-decorators) for react(compatible with normal classes as well ) which automatically binds all the properties of the class and provides a powerful API to work with react event callbacks.
 
 
 ### Installation
 ```
 npm i react-easy-bind --save-dev
 ```
+
+### Heads up
+
+Please configure your build system/[babel](https://babeljs.io) if you are using `react-auto-bind` as a **decorator**.
+
+Please check [babel-plugin-transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy) for more details.
 
 ### Usage
 ``` javascript

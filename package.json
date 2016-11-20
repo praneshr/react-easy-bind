@@ -36,6 +36,18 @@
     "type": "git",
     "url": "git+https://github.com/praneshr/react-easy-bind.git"
   },
+  "keywords": [
+    "react",
+    "autobind",
+    "decorator",
+    "pranesh",
+    "ravi",
+    "utility",
+    "easy-bind",
+    "react-easy-bind",
+    "easy bind",
+    "react easy bind",
+  ],
   "author": "Pranesh Ravi",
   "license": "MIT",
   "bugs": {
