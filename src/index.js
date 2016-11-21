@@ -7,63 +7,69 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+{
 
-const ignoredMethods = [
-  'constructor',
-  'componentWillMount',
-  'componentDidMount',
-  'componentWillReceiveProps',
-  'componentWillUpdate',
-  'shouldComponentUpdate',
-  'componentDidUpdate',
-  'componentWillUnmount',
-  'render',
-]
+  const ignoredMethods = [
+    'constructor',
+    'componentWillMount',
+    'componentDidMount',
+    'componentWillReceiveProps',
+    'componentWillUpdate',
+    'shouldComponentUpdate',
+    'componentDidUpdate',
+    'componentWillUnmount',
+    'render',
+  ]
 
 
-const registerEasyBindApi = (target) => {
-  target.prototype.easyBind = (...options) => {
-    const [fn, ...params] = options
-    if (typeof fn !== 'function') {
-      console.error(`Error: In '${target.name}', first parameter of easyBind should be a function but got ${typeof fn}.`)
-      return
+  const registerEasyBindApi = (target) => {
+    target.prototype.easyBind = (...options) => {
+      const [fn, ...params] = options
+      if (typeof fn !== 'function') {
+        console.error(`Error: In '${target.name}', first parameter of easyBind should be a function but got ${typeof fn}.`)
+        return
+      }
+      return (...args) => fn.apply(null, params.concat(args))
     }
-    return (...args) => fn.apply(null, params.concat(args))
   }
-}
 
 
-const bindFn = (el, propDescriptor) => {
-  return {
-    configurable: true,
-    get: function get() {
-      return propDescriptor.value.bind(this)
-    },
-    set: function set(newValue) {
-      if (el !== 'easyBind')
+  const bindFn = (el, propDescriptor) => {
+    return {
+      configurable: true,
+      get: function get() {
+        return propDescriptor.value.bind(this)
+      },
+      set: function set(newValue) {
+        if (el !== 'easyBind')
         Object.defineProperty(this, el, {
           configurable: true,
           writable: true,
           value: newValue,
         })
+      }
     }
   }
+
+  const easyBind = (target) => {
+
+    registerEasyBindApi(target)
+
+    const targetPrototype = target.prototype
+    const targetProperties = Object.getOwnPropertyNames(targetPrototype)
+    const filteredProperties = targetProperties.filter(el => !(ignoredMethods.indexOf(el) > -1))
+
+    filteredProperties.forEach((el) => {
+      const propDescriptor = Object.getOwnPropertyDescriptor(targetPrototype, el)
+      Object.defineProperty(targetPrototype, el, bindFn(el, propDescriptor))
+    })
+
+    return target
+  }
+
+  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined')
+    module.exports = easyBind
+  else if (typeof define === 'function' && define.amd)
+    define([], () => easyBind)
+  else window.ReactEasyBind = easyBind
 }
-
-const easyBind = (target) => {
-
-  registerEasyBindApi(target)
-
-  const targetPrototype = target.prototype
-  const targetProperties = Object.getOwnPropertyNames(targetPrototype)
-  const filteredProperties = targetProperties.filter(el => !(ignoredMethods.indexOf(el) > -1))
-
-  filteredProperties.forEach((el) => {
-    const propDescriptor = Object.getOwnPropertyDescriptor(targetPrototype, el)
-    Object.defineProperty(targetPrototype, el, bindFn(el, propDescriptor))
-  })
-
-  return target
-}
-
-export default easyBind
