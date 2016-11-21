@@ -5,4 +5,5 @@ test/
 .babelrc
 .gitignore
 .npmignore
+.circle.yml
 webpack.config.babel.js
