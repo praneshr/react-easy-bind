@@ -11,6 +11,10 @@ A class [decorator](https://github.com/wycats/javascript-decorators) for react(c
 ```
 npm i react-easy-bind --save-dev
 ```
+or
+``` html
+<script src="https://unpkg.com/react-easy-bind/lib/index.min.js"></script>
+```
 
 ### Heads up
 
