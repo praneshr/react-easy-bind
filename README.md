@@ -51,8 +51,8 @@ class Example extends Component {
 }
 
 //ES5 way
-import React, { Component, PropTypes } from 'react'
-import easyBind from 'react-easy-bind'
+var React = require('react')
+var easyBind = require('react-easy-bind')
 
 var Example = React.createClass({
   handleClick(v, e) {
